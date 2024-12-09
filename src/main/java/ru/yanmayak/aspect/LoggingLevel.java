@@ -17,7 +17,4 @@ public enum LoggingLevel {
 
     private final int level;
 
-    boolean suitable(LoggingLevel loggingLevel) {
-        return this.level <= loggingLevel.level;
-    }
 }
