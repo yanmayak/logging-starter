@@ -4,18 +4,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import ru.yanmayak.config.LoggerProperties;
 
 @Aspect
 @Slf4j
 public class LoggingAspect {
-    private final LoggingConfig loggingConfig;
+    private final LoggerProperties loggerProperties;
 
-    public LoggingAspect(LoggingConfig loggingConfig) {
-        this.loggingConfig = loggingConfig;
+    public LoggingAspect(LoggerProperties loggerProperties) {
+        this.loggerProperties = loggerProperties;
     }
 
     private boolean shouldLog(LoggingLevel log) {
-        return log.suitable(this.loggingConfig.getLevel());
+        return (log.ordinal() >= this.loggerProperties.getLevel().ordinal());
     }
 
     @Before("@annotation(LogExecution)")
